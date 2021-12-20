@@ -33,7 +33,16 @@ namespace ProductReviewMgmt
             }
         }
 
+        public void CustomRetrive(List<ProductReview> listproductReview)
+        {
+            var recordedData = from A in listproductReview orderby A.ProductId, A.Review select new { ProductId = A.ProductId, Review = A.Review };
 
+            foreach (var list in recordedData)
+            {
+                Console.WriteLine(list.ProductId + "_____" + list.Review);
+            }
+
+        }
 
     }
 }

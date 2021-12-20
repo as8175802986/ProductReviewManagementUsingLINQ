@@ -37,8 +37,10 @@ namespace ProductReviewMgmt
             //UC3
             //management.SelectRecords(productReviewList);
             //UC4
-            management.RetriveRecords(productReviewList);
-            
+            //management.RetriveRecords(productReviewList);
+            //UC5
+            management.CustomRetrive(productReviewList);
+
 
 
 
