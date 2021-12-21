@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using System.Data;
 
 namespace ProductReviewMgmt
 {
@@ -42,6 +43,34 @@ namespace ProductReviewMgmt
                 Console.WriteLine(list.ProductId + "_____" + list.Review);
             }
 
+        }
+        public void SkipRecords(List<ProductReview> listProductReview)
+        {
+            var recordedData = (from ProductReviews in listProductReview where (ProductReviews.ProductId > 5) select ProductReviews);
+            foreach (var list in recordedData)
+            {
+                Console.WriteLine("ProductId" + list.ProductId + "-" + "UserId" + list.UserId + "-" + "Rating" + list.Rating + "-" + "Review" + list.Review);
+            }
+        }
+
+        DataTable dataTable = new DataTable();
+        public void ProductReviewDataTale(List<ProductReview> listproductReview)
+        {
+            var recordedData = from ProductReviews in listproductReview select ProductReviews;
+            dataTable.Columns.Add("ProductId").DataType = typeof(Int32);
+            dataTable.Columns.Add("UserId").DataType = typeof(Int32);
+            dataTable.Columns.Add("Rating").DataType = typeof(int);
+            dataTable.Columns.Add("Review");
+            dataTable.Columns.Add("isLike").DataType = typeof(bool);
+            foreach (var product in listproductReview)
+            {
+               dataTable.Rows.Add(product.ProductId, product.UserId, product.Rating, product.Review, product.isLike);
+            }
+            var productTable = from ProductReview in dataTable.AsEnumerable() select ProductReview;
+            foreach (DataRow product in productTable)
+            {
+                Console.WriteLine(product.Field<int>("ProductId") + " " + product.Field<int>("UserID") + " " + product.Field<int>("Rating") + " " + product.Field<string>("Review") + " " + product.Field<bool>("isLike"));
+            }
         }
 
     }
