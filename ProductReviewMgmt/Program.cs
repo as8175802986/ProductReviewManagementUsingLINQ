@@ -43,7 +43,11 @@ namespace ProductReviewMgmt
             //Uc6
             //management.SkipRecords(productReviewList);
             //UC8
-            management.ProductReviewDataTale(productReviewList);
+           
+           //UC9
+           management.AvgRecords(productReviewList);
+
+
 
 
 

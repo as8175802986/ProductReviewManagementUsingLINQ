@@ -64,7 +64,7 @@ namespace ProductReviewMgmt
             dataTable.Columns.Add("isLike").DataType = typeof(bool);
             foreach (var product in listproductReview)
             {
-               dataTable.Rows.Add(product.ProductId, product.UserId, product.Rating, product.Review, product.isLike);
+                dataTable.Rows.Add(product.ProductId, product.UserId, product.Rating, product.Review, product.isLike);
             }
             var productTable = from ProductReview in dataTable.AsEnumerable() select ProductReview;
             foreach (DataRow product in productTable)
@@ -72,6 +72,23 @@ namespace ProductReviewMgmt
                 Console.WriteLine(product.Field<int>("ProductId") + " " + product.Field<int>("UserID") + " " + product.Field<int>("Rating") + " " + product.Field<string>("Review") + " " + product.Field<bool>("isLike"));
             }
         }
-
+            public void RetriveRecordsFromDataTable()
+            {
+                var productTable = from ProductReview in dataTable.AsEnumerable() where ProductReview.Field<bool>("IsLike").Equals(true) select ProductReview;
+                foreach (DataRow product in productTable)
+                {
+                Console.WriteLine(product.Field<int>("ProductId") + " " + product.Field<int>("UserID") + " " + product.Field<int>("Rating") + " " + product.Field<string>("Review") + " " + product.Field<bool>("isLike"));
+                }
+            }
+        public void AvgRecords(List<ProductReview> listproductReview)
+        {
+            var recordedData = listproductReview.GroupBy(A => A.ProductId).Select(A => new { ProductId = A.Key, AverageRating = A.Average(A => A.Rating) });
+            foreach (var list in recordedData)
+            {
+                Console.WriteLine(list.ProductId + "_____" + list.AverageRating);
+            }
+        }
     }
+
+    
 }
